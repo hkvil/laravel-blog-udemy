@@ -19,12 +19,15 @@ Route::get('/admin-only',function(){
         return "You are an admin";
 })->middleware('can:visitAdminPage');
 
+// Catatan:anuan itu hanya cek apakah user sudah login atau belum auth()->check()
+
 // User related routes
 Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login');
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
-
+Route::get('/manage-avatar',[UserController::class,'showAvatarForm'])->middleware('anuan');
+Route::post('/manage-avatar',[UserController::class,'storeAvatar'])->middleware('anuan');
 // Blog post related routes
 Route::get('/create-post', [PostController::class, 'showCreateForm'])->middleware('anuan');
 Route::post('/create-post', [PostController::class, 'storeNewPost']);

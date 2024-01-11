@@ -18,7 +18,7 @@ class Anuan
         if(auth()->check()){
             return $next($request);
         }else{
-            return redirect('/you-ndak-login-laa');
+            return redirect('/')->with('error','You must be logged in to access this page');
         }
     }
 }

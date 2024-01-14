@@ -61,4 +61,11 @@ class PostController extends Controller
 
         return back()->with('success', 'Post successfully updated.');
     }
+
+    public function search($term){
+        // $posts = Post::where('title','like',"%{$term}%")->get(); APPROACH 1
+        $posts = Post::search($term)->get(); // APPROACH 2 recommended
+        $posts->load('user:id,username,avatar');
+        return $posts;
+    }
 }
